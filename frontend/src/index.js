@@ -19,7 +19,8 @@ const books = [
 ];
 
 // eslint-disable-next-line no-unused-vars
-const Book = ({img, title, author}) => {
+const Book = (props) => {
+  const {img, title, author} = props;
   return (
     <article className="book">
       <img
@@ -32,23 +33,35 @@ const Book = ({img, title, author}) => {
   );
 };
 
+const EventExamples = () => {
+  const handleFormInput = (e) => {
+    console.log(e);
+    console.log("handle form input");
+  };
+
+  const handleButtonClick = () => {
+    alert("handle form input");
+  };
+
+  return (
+    <section>
+      <form>
+        <h2>Typical Form</h2>
+        <input type="text" name="example" onChange={handleFormInput} style={{ margin: "1rem 0"}}/>
+      </form>
+      <button onClick={handleButtonClick}>Click me</button>
+    </section>
+  );
+};
+
 const BookList = () => {
   return (
     <section className="booklist">
+      <EventExamples/>
       {
-        books.map((book) => {
-          const { img, title, author, id} = book;
-          // eslint-disable-next-line react/jsx-key
-          return (
-            <Book
-              img={img}
-              title={title}
-              author={author}
-              key={id}
-            />
-          );
-        }
-        )
+        books.map((book) =>  {
+          return <Book {...book} key={book.id}/>;
+        })
       }
     </section>
   );
